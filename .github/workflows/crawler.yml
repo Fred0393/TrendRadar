@@ -27,7 +27,33 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-
+      - name: Debug file structure
+        run: |
+          echo "=== 调试文件结构 ==="
+          echo "当前工作目录:"
+          pwd
+          echo ""
+          echo "根目录文件列表:"
+          ls -la
+          echo ""
+          echo "config 目录内容:"
+          ls -la config/
+          echo ""
+          echo "检查文件是否存在:"
+          [ -f "config/config.yaml" ] && echo "✅ config.yaml 存在" || echo "❌ config.yaml 不存在"
+          [ -f "config/frequency_words.txt" ] && echo "✅ frequency_words.txt 存在" || echo "❌ frequency_words.txt 不存在"
+          echo ""
+          echo "文件内容预览:"
+          echo "--- config.yaml 前5行 ---"
+          head -5 config/config.yaml || echo "无法读取 config.yaml"
+          echo "--- frequency_words.txt 前5行 ---" 
+          head -5 config/frequency_words.txt || echo "无法读取 frequency_words.txt"
+      # ↑↑↑ 调试步骤结束 ↑↑↑
+      
+      - name: Verify required files
+        run: |
+          echo "🔍 检查必需的配置文件..."
+      
       - name: Verify required files
         run: |
           echo "🔍 检查必需的配置文件..."
